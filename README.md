@@ -7,8 +7,11 @@ This repo beholds two different folders to create images for running Jupyterlab 
 
 ## How to use
 
-Clone the repository:
+Clone this repository:
 
 ```
-git clone 
+git clone https://github.com/Huertas97/Docker-Repo.git
 ```
+
+In each folder there is a `.env` file where you should add your personal information: 
+
