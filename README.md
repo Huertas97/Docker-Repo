@@ -1,5 +1,10 @@
 # Docker-Repo
 
+#new-features
+#how-to-use
+#include-new-libraries
+#apply-changes
+
 This repo beholds two different folders to create images for running Jupyterlab v3.x with GPU support. The `Docker-GPU-R` folder additionaly installs 'rpy2' and 'tidyverse' for using R inside Jupyter Notebooks. 
 
 ## New features
@@ -57,7 +62,7 @@ If the Docker image already exists but it is not running and you want to start i
 docker-compose --env-file .env up -d
 ```
 
-## Include new libraries during the Docker Image creation
+## Include new libraries
 
 If yuo want to add new libraries in the Docker Image you should change the `Dockerfile` inside the `jupyterlab_GPU` folder. 
 For the sake of clarity, let's do an example. 
