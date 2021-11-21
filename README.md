@@ -60,7 +60,9 @@ docker-compose --env-file .env up -d
 
 
 ### Apply changes
-If you make any changes inside the folder (like changing the libraries to install) you should stop and remove the image and build it again. First we can list the running Docker Images:
+If you make any changes inside the folder (like changing the libraries to install) while the image is already running, you should stop and remove the image and build it again. For the sake of clarity, let's do an example. 
+
+First we can list the running Docker Images:
 ```
 docker ps
 CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS          PORTS                                        NAMES
