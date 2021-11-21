@@ -68,3 +68,32 @@ CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS      
 03691aa6dzfv   image_2    "sh -c 'jupyter note…"   4 days ago       Up 4 days       0.0.0.0:xxxx->8888/tcp, :::xxxx->8888/tcp    IMAGE_NAME_2
 ```
 
+Imagine that we have applied some changes in the Dockerfile of `IMAGE_NAME_1` and we want to make those changes to be applied. First we stop it:
+```
+docker stop IMAGE_NAME_1
+```
+
+or 
+
+```
+docker stop 1b4612355955
+```
+
+Then we remove it:
+
+```
+docker rm IMAGE_NAME_1
+```
+
+or 
+
+```
+docker rm 1b4612355955
+```
+
+Now, inside the folder where the `.env` file is located we build the image:
+```
+docker-compose --env-file .env up -d --build
+```
+
+Now the changes should be applied. 
