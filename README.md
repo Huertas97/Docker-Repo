@@ -33,6 +33,8 @@ GID=""
 USER=""
 ```
 
+Note: If you don't want MongoDB feel free to only complete `COMPOSE_PROJECT_NAME`, `JUPYTER_PASSWORD`, `JUPYTERLAB_CONTAINER_NAME`, `JUPYTERLAB_PORT`, `UID`, `GID` and `USER`.
+
 Move to the desired folder:
 
 ```
