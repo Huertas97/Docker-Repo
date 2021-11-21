@@ -63,8 +63,8 @@ docker-compose --env-file .env up -d
 If you make any changes inside the folder (like changing the libraries to install) you should stop and remove the image and build it again. First we can list the running Docker Images:
 ```
 docker ps
-CONTAINER ID   IMAGE                                COMMAND                  CREATED          STATUS          PORTS                                                           NAMES
-1b4612355955   image_1    "jupyter lab --ip=0.…"   41 minutes ago   Up 41 minutes   0.0.0.0:xxxx->8888/tcp, :::xxxx->8888/tcp                       IMAGE_NAME_1
-03691aa6dzfv   image_2                     "sh -c 'jupyter note…"   4 days ago       Up 4 days       0.0.0.0:xxxx->8888/tcp, :::xxxx->8888/tcp                      IMAGE_NAME_"
+CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS          PORTS                                              NAMES
+1b4612355955   image_1    "jupyter lab --ip=0.…"   41 minutes ago   Up 41 minutes   0.0.0.0:xxxx->8888/tcp, :::xxxx->8888/tcp          IMAGE_NAME_1
+03691aa6dzfv   image_2    "sh -c 'jupyter note…"   4 days ago       Up 4 days       0.0.0.0:xxxx->8888/tcp, :::xxxx->8888/tcp          IMAGE_NAME_2
 ```
 
