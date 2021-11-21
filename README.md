@@ -1,16 +1,16 @@
 # Docker-Repo
 
-#new-features
-#how-to-use
-##include-new-libraries
-##apply-changes
+- [New features](#new-features)
+- [How to use](#how-to-use)
+- [Include new libraries](#include-new-libraries)
+     - [Apply changes](#apply-changes)
 
 This repo beholds two different folders to create images for running Jupyterlab v3.x with GPU support. The `Docker-GPU-R` folder additionaly installs 'rpy2' and 'tidyverse' for using R inside Jupyter Notebooks. 
 
-## [New features](#new-features)
+## New features
 
 
-## [How to use](#how-to-use)
+## How to use
 
 Clone this repository:
 
