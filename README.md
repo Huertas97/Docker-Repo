@@ -1,4 +1,4 @@
-# Docker-Repo :robot::whale2::whale:
+# Docker-Repo :robot::whale::desktop_computer:
 
 - [New features](#new-features)
 - [How to use](#how-to-use)
