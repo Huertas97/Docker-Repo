@@ -59,6 +59,47 @@ docker-compose --env-file .env up -d
 
 ## Include new libraries during the Docker Image creation
 
+If yuo want to add new libraries in the Docker Image you should change the `Dockerfile` inside the `jupyterlab_GPU` folder. 
+For the sake of clarity, let's do an example. 
+
+The initial `Dockerfile` contains:
+
+```
+FROM tensorflow/tensorflow:latest-gpu
+FROM vrodriguezf/jupyterlab-cuda:latest
+
+# INSTALL R
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential r-base r-cran-randomforest
+
+# UPGRADE PIP
+RUN pip3 install --upgrade pip
+
+# PYTHON PACKAGES with pip
+RUN pip3 install scikit-learn fastgpu nbdev pandas transformers tensorflow-addons \
+     tensorflow torch pymongo torch emoji python-dotenv
+```
+
+and we want to add `tidyverse` library for R and `plotly` for Python:
+
+```
+FROM tensorflow/tensorflow:latest-gpu
+FROM vrodriguezf/jupyterlab-cuda:latest
+
+# INSTALL R
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential r-base r-cran-randomforest
+
+# ADD  tidyverse
+RUN echo 'install.packages("tidyverse")' > /tmp/packages.R && Rscript /tmp/packages.R
+
+# UPGRADE PIP
+RUN pip3 install --upgrade pip
+
+# PYTHON PACKAGES with pip - ADD plotly
+RUN pip3 install scikit-learn fastgpu nbdev pandas transformers tensorflow-addons \
+     tensorflow torch pymongo torch emoji python-dotenv plotly
+```
 
 
 ### Apply changes
@@ -95,7 +136,7 @@ or
 docker rm 1b4612355955
 ```
 
-Now, inside the folder where the `.env` file is located we build the image:
+Now, inside the folder where we have changed and the `.env` file is located we build the image:
 ```
 docker-compose --env-file .env up -d --build
 ```
