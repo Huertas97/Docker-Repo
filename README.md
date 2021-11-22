@@ -1,6 +1,12 @@
 # Docker-Repo :robot::whale::desktop_computer:
 
 - [New features](#new-features)
+     - [Debugger](#debugger)
+     - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
+     - [Darwio](#drawio)
+     - [NVIDIA Dashboard](#nvidia-dashboard)
+     - [Use R and tidyverse](#user-r-and-tidyverse)
+     - [Themes](#themes)
 - [How to use](#how-to-use)
 - [Include new libraries](#include-new-libraries)
      - [Apply changes](#apply-changes)
@@ -11,11 +17,34 @@ This repo beholds two different folders to create images for running Jupyterlab 
 
 ## New features
 
-[![Watch the video]](https://github.com/Huertas97/Docker-Repo/blob/main/Images/NVIDIA-dashboard.mp4)
-![debugger](https://user-images.githubusercontent.com/56938752/142846455-5efb0246-2503-4d9f-91c3-ab24b70f8d7b.gif)
-
-
+### Debugger
 https://user-images.githubusercontent.com/56938752/142846483-4f1e8287-332c-40ae-86fb-ef40a24ed528.mp4
+
+### Plotly and Plotly Chart editor
+
+
+https://user-images.githubusercontent.com/56938752/142846772-383875a3-dbd4-40a6-aa52-d02ce1761a5e.mp4
+
+
+
+### Drawio
+
+### NVIDIA Dashboard
+
+
+https://user-images.githubusercontent.com/56938752/142846761-df6d2913-3fec-49ce-a0a0-ebfab2e393ab.mp4
+
+
+### Use R and tidyverse
+
+
+https://user-images.githubusercontent.com/56938752/142846797-1fbcf616-b61a-43d1-8635-bcf7c8a9f546.mp4
+
+
+### Themes
+
+
+https://user-images.githubusercontent.com/56938752/142846785-0b56f68c-a28b-4bfa-8f6e-abe85613ba6a.mp4
 
 
 ## How to use
