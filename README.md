@@ -11,6 +11,7 @@ This repo beholds two different folders to create images for running Jupyterlab 
 
 ## New features
 
+[![Watch the video]](https://github.com/Huertas97/Docker-Repo/blob/main/Images/NVIDIA-dashboard.mp4)
 
 ## How to use
 
