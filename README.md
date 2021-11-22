@@ -3,7 +3,7 @@
 - [New features](#new-features)
      - [Debugger](#debugger)
      - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
-     - [Darwio](#drawio)
+     - [Drawio](#drawio)
      - [NVIDIA Dashboard](#nvidia-dashboard)
      - [Use R and tidyverse](#user-r-and-tidyverse)
      - [Themes](#themes)
