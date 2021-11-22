@@ -1,4 +1,3 @@
-FROM tensorflow/tensorflow:latest-gpu
 FROM vrodriguezf/jupyterlab-cuda:latest
 
 # INSTALL NODEjs from NodeSource
