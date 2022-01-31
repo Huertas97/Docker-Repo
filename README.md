@@ -235,7 +235,8 @@ One final step is nrequired before connecting to the remote server. We will now 
 
 Finally we can connect to the remote server. Go to the `Remote Explorer` in the left sidebar, right click on your remote server and select `Connect to Host in New Window`. 
 
-![imagen](https://user-images.githubusercontent.com/56938752/151824824-bf5e13fa-cbc3-4f98-9bbf-48a1cf860b11.png)
+![imagen](https://user-images.githubusercontent.com/56938752/151825105-d1b3a3ac-6887-4d17-9115-763d1f88991a.png)
+
 
 ![image](https://user-images.githubusercontent.com/56938752/151779056-06911909-e7b9-456d-95e5-d3ac74481797.png)
 
