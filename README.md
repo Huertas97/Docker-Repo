@@ -1,19 +1,23 @@
 # Docker-Repo :robot::whale::desktop_computer:
 
-- [New features](#new-features)
-     - [Debugger](#debugger)
-     - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
-     - [Drawio](#drawio)
-     - [NVIDIA Dashboard](#nvidia-dashboard)
-     - [Use R and tidyverse](#user-r-and-tidyverse)
-     - [Themes](#themes)
-- [How to use](#how-to-use)
-- [Include new libraries](#include-new-libraries)
-     - [Apply changes](#apply-changes)
+- [JupyterLab](#jupyterlab)
+     - [New features](#new-features)
+          - [Debugger](#debugger)
+          - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
+          - [Drawio](#drawio)
+          - [NVIDIA Dashboard](#nvidia-dashboard)
+          - [Use R and tidyverse](#user-r-and-tidyverse)
+          - [Themes](#themes)
+     - [How to use](#how-to-use)
+     - [Include new libraries](#include-new-libraries)
+          - [Apply changes](#apply-changes)
+- [VSCode](#vscode)
 
 --- 
 
 This repo beholds two different folders to create images for running Jupyterlab v3.x with GPU support. The `Docker-GPU-R` folder additionaly installs 'rpy2' and 'tidyverse' for using R inside Jupyter Notebooks. 
+
+# JupyterLab
 
 ## New features
 
@@ -190,3 +194,68 @@ docker-compose --env-file .env up -d --build
 ```
 
 Now the changes should be applied. 
+
+---
+
+# VSCode
+
+Another editor option is VSCode. To use this editor in our local machine but inside the container there are two main requirements:
+- VSCode installed in our local machine
+- Docker installed in our local machine
+- Access to the remote server (i.e., user and password to connect from `ssh user@IP-remote-server`)
+- A built image and its running container
+
+The key point in this process is to set up VSCode to access to the remote server via SSH. For this purpose we will need an authorized user and a password to access this remote server. To check if you already accomplish this requirement try this command in your terminal:
+
+```bash
+ssh my-user-name@IP-remote-server
+```
+
+Once we check we can connect to the remote server through SSH, we will set up VSCode to access via SSH to the remote server. We will need several extensions from tha VSCode extension market:
+
+
+![image](https://user-images.githubusercontent.com/56938752/151775514-a81216bd-bee3-4401-8ead-b7ba5a86c8d4.png)
+
+
+Then, we will configurate the SSH connection to the remote server. In VSCode open the command palette (click `F1`), write ` Remote-SSH: Open Configuration File` in the search bar, select `.ssh/config` from the dropdown selection bar. This file will be open (see screenshot below). Add the following lines with your own information. From the lef sidebar, check that the `Remote Explorer` shows your custome remote server (the name introduced in first line). 
+
+![image](https://user-images.githubusercontent.com/56938752/151777262-5187511b-f8fe-4595-878c-ebeae774adec.png)
+
+One final step is nrequired before connecting to the remote server. We will now add the SSH settings conectivity to the VSCode settings. In VSCode open the command palette (click `F1`), write and select `Preferences: Open settings (JSON)` in the search bar. Add the following lines to the current settings: 
+
+````
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.connectTimeout": 30,
+    "terminal.integrated.windowsEnableConpty": false,
+    "remote.SSH.remotePlatform": {
+        "custom-name-remote-server": "linux" # your remote server operating system. Use the same custom remote server name as in the previous step
+    }
+````
+
+Finally we can connect to the remote server. Go to the `Remote Explorer` in the left sidebar, right click on your remote server and select `Connect to Host in New Window`. 
+
+
+![image](https://user-images.githubusercontent.com/56938752/151779056-06911909-e7b9-456d-95e5-d3ac74481797.png)
+
+A new VSCode window will open and ask for the user password. Write it down and click Enter. Congratulations! You are now using VSCode in your remote server. However, now we have to access to a container in order to have a private workspace. If we directly use the remote server as our workspace we can affect other users. Thus, docker container are quite handy in this kind of situations. We can check that we are now working with VSCode in a new environment (the remote server), if we go to the `Extensions` left sidebar. We will see `Local Installed` extensions and `SSH: XXXX-NAME-SERVER - INSTALLED`. We will add `Docker` extension to the remote server to build images, run containers and access to them. 
+
+![image](https://user-images.githubusercontent.com/56938752/151780431-40e43036-3ce3-49b5-9896-a3fe3cf590d9.png)
+
+
+Now we can go to the `Docker` left sidebar explorer and navigate through all the images available and containers in the server.  
+
+![image](https://user-images.githubusercontent.com/56938752/151780676-b011613e-8ad0-44a1-9523-167946112030.png)
+
+
+If we want to build and start a container we should use the same commands and requirements specify in the `JupterLab` previous section in the VSCode terminal (which is the remote server terminal). Once our container is running we just need to access to the container using VSCode. For that, go to the desired container, right click and select `Attach Visual Studio Code`. Select your container from the dropdown list. You will need to write down again your user's password.
+
+![image](https://user-images.githubusercontent.com/56938752/151781991-9a81fbb3-53c5-43fc-ba99-cbfe842b8f6a.png)
+
+![image](https://user-images.githubusercontent.com/56938752/151782306-ceba1a46-7bf3-4162-be29-06f03072ad97.png)
+
+
+Congrats! Now you are working with VSCode inside your container. Now you can navigate through the files of your container and set your working directory from the `File > Open Folder ...` options inside VSCode and use VSCode as you will use it in your local machine (i.e, add extensions, install packages, etc.).
+
+
+
