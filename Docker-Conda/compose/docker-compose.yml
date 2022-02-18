@@ -23,7 +23,7 @@ services:
     volumes:
       - ../:/home/${USER_NAME}/dockerfiles
       - ${LOCAL_DATA_PATH}:/home/${USER_NAME}/data/ #*
-      - conda-env:/home/${USER_NAME}/miniconda3/env
+      - conda-env:/home/${USER_NAME}/env
       - miniconda:/home/${USER_NAME}/miniconda3
       - lib:/home/${USER_NAME}/lib
     init: true
