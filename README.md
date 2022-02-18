@@ -233,6 +233,18 @@ $ conda activate myenv
 Now reload the page (press `F5`) and you will be able to select `<any_name_for_kernel_you_will_see_displayed>` as kernel for the jupyter notebook. Here is an example of before and after setting the kernel available. 
 
 
+![before](https://user-images.githubusercontent.com/56938752/154686097-f16b1b7b-5e9c-4b2a-a8a6-766bc8a9d3a8.PNG)
+
+````bash
+$ conda create --name myenv -y
+$ conda activate myenv    
+(myenv)$ conda install ipykernel
+(myenv)$ ipython kernel install --user --name=example_env_name
+(myenv)$ conda deactivate
+````
+
+![after](https://user-images.githubusercontent.com/56938752/154686114-e8ae998d-4870-47b4-a0ed-8fd56e8c5180.PNG)
+
 
 # VSCode
 
