@@ -16,7 +16,6 @@ nbresuse
 jupyter-lsp 
 jupyterlab-drawio 
 jupyter-dash
-jupyterlab-chart-editor
 jupyterlab_code_formatter 
 black 
 isort 
