@@ -1,0 +1,27 @@
+name: jupyterlab-cuda-env
+
+channels:
+  - defaults
+  - conda-forge
+  - fastai
+
+dependencies:
+  - cudatoolkit=11.2
+  - python=3.8
+  - git
+  - gh
+  - jupyterlab
+  - jupyterlab-git
+  - matplotlib
+  - nano
+  - nbclassic>=0.2.8
+  - mamba_gator
+  - nbdev
+  - numpy
+  - pip==20.2
+  - pandas
+  - pip:
+     - jupyterlab-quickopen
+     - aquirdturtle_collapsible_headings
+     - -r requirements.txt
+  - wandb

@@ -1,0 +1,2 @@
+# mamba install -c conda-forge jupyterlab mamba_gator -y
+# jupyter lab build --dev-build=False --minimize=False

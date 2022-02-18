@@ -1,0 +1,66 @@
+# Jupyterlab 3 extensions and new capabilities
+jupyterlab
+codetiming
+jupyterlab-git 
+nbdime 
+aquirdturtle_collapsible_headings 
+jupyterlab-quickopen 
+ipykernel
+jupyterlab_nvdashboard 
+jupyterlab-logout 
+jupyterlab-system-monitor 
+jupyterlab-topbar
+jupyterlab_theme_hale
+jupyterlab_theme_solarized_dark 
+nbresuse
+jupyter-lsp 
+jupyterlab-drawio 
+jupyter-dash
+jupyterlab-chart-editor
+jupyterlab_code_formatter 
+black 
+isort 
+jupyterlab_latex
+xeus-python
+theme-darcula
+jupyterlab_materialdarker 
+lckr-jupyterlab-variableinspector 
+jupyter-drawio-export
+itables
+
+# Basics
+scikit-learn 
+fastgpu 
+nbdev 
+pandas 
+transformers 
+tensorflow-addons
+tensorflow 
+torch 
+pymongo
+python-dotenv
+plotly 
+kaleido
+rpy2
+codetiming
+tqdm
+
+## NLP specific
+# sentence-transformers
+# simpletransformers  
+# seqeval 
+# sentencepiece
+# tensorboardx 
+# imbalanced-learn 
+# tweet-preprocessor 
+# ftfy 
+# emoji
+# emoji-translate 
+# ekphrasis
+# contractions 
+# scikit-multilearn 
+# tabulate
+# umap-learn 
+# pytorch-lightning  
+# pyecharts
+# keybert 

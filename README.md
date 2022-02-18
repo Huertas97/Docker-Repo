@@ -1,16 +1,18 @@
 # Docker-Repo :robot::whale::desktop_computer:
 
+- [Docker-Repo :robot::whale::desktop_computer:](#docker-repo-robotwhaledesktop_computer)
 - [JupyterLab](#jupyterlab)
-     - [New features](#new-features)
-          - [Debugger](#debugger)
-          - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
-          - [Drawio](#drawio)
-          - [NVIDIA Dashboard](#nvidia-dashboard)
-          - [Use R and tidyverse](#user-r-and-tidyverse)
-          - [Themes](#themes)
-     - [How to use](#how-to-use)
-     - [Include new libraries](#include-new-libraries)
-          - [Apply changes](#apply-changes)
+  - [New features](#new-features)
+    - [Debugger](#debugger)
+    - [Plotly and Plotly Chart editor](#plotly-and-plotly-chart-editor)
+    - [Drawio](#drawio)
+    - [NVIDIA Dashboard](#nvidia-dashboard)
+    - [Use R and tidyverse](#use-r-and-tidyverse)
+    - [Themes](#themes)
+  - [How to use](#how-to-use)
+  - [Include new libraries](#include-new-libraries)
+    - [Apply changes](#apply-changes)
+- [Jupyterlab & Conda](#jupyterlab--conda)
 - [VSCode](#vscode)
 
 --- 
@@ -196,6 +198,10 @@ docker-compose --env-file .env up -d --build
 Now the changes should be applied. 
 
 ---
+
+# Jupyterlab & Conda
+
+
 
 # VSCode
 

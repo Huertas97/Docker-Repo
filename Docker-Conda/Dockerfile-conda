@@ -1,0 +1,167 @@
+FROM nvidia/cuda:11.2.1-cudnn8-runtime-ubuntu20.04
+
+LABEL maintainer="vrodriguezf <victor.rfernandez@upm.es>"
+
+# If you need to run bash (or any other interpreter but sh), use exec form with /bin/bash as executable
+SHELL [ "/bin/bash", "--login", "-c" ]
+
+#  It executes any commands on top of the current image and creates a new layer by committing the results
+# Note that apt-get update and apt-get install are executed in a single RUN instruction. 
+# This is done to make sure that the latest packages will be installed.
+# If apt-get install were in a separate RUN instruction, then it would reuse a layer added by apt-get update, 
+# which could had been created a long time ago.
+RUN apt-get update --fix-missing && \
+    apt-get install -y wget bzip2 curl git net-tools zsh && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# INSTALL NODEjs from NodeSource
+RUN curl -s http://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN sh -c "echo deb http://deb.nodesource.com/node_12.x focal main > /etc/apt/sources.list.d/nodesource.list"
+RUN apt-get update && \
+    apt-get install -y nodejs
+
+# Environmental variables for wandb
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+# Create a non-root user
+ARG username=victor
+ARG uid=1000
+ARG gid=1000
+
+ENV USER $username
+ENV UID $uid
+ENV GID $gid
+ENV HOME /home/$USER
+
+# Create the docker group.
+RUN addgroup --gid $GID $USER
+
+# Add your user to the docker group as non-root user for security
+# user run as root by default and have a lot of dangerous privileges
+# for a secure production container add users as non-root users.
+RUN adduser --disabled-password \
+    --gecos "Non-root user" \
+    --uid $UID \
+    --gid $GID \
+    --home $HOME \
+    $USER
+
+# use the USER instruction to specify a non-root user for containers to run commands
+# if you need root permissions set USER root and thenwitch back to a lower permissions user to run the image USER $USER
+USER $USER
+
+# Add the jupyterlab settings
+COPY --chown=$uid:$gid compose/.jupyter $HOME/.jupyter
+
+# install miniconda
+ENV MINICONDA_VERSION 4.10.3
+ENV CONDA_DIR $HOME/miniconda3
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh -O ~/miniconda.sh && \
+    chmod +x ~/miniconda.sh && \
+    ~/miniconda.sh -b -p $CONDA_DIR && \
+    rm ~/miniconda.sh
+
+# make non-activate conda commands available
+ENV PATH=$CONDA_DIR/bin:$PATH
+
+# make conda activate command available from /bin/bash --login shells
+RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> ~/.profile
+
+# make conda activate command available from /bin/bash --interative shells
+RUN conda init bash
+
+# create a project directory inside user home
+ENV PROJECT_DIR $HOME
+RUN mkdir -p $PROJECT_DIR
+WORKDIR $PROJECT_DIR
+
+# Install and update mamba
+ENV ENV_PREFIX $PROJECT_DIR/env
+RUN conda install --name base --channel conda-forge mamba
+RUN mamba update --name base --channel defaults conda
+
+# build the mamba environment /tmp/
+COPY --chown=$UID:$GID compose/environment.yml compose/requirements.txt ./
+RUN mamba env create --prefix $ENV_PREFIX --file environment.yml --force
+RUN conda clean --all --yes
+
+# run the postBuild script to install the JupyterLab extensions
+COPY --chown=$UID:$GID compose/postBuild /usr/local/bin
+RUN chmod u+x /usr/local/bin/postBuild
+RUN conda activate $ENV_PREFIX && \
+    /usr/local/bin/postBuild && \
+    conda deactivate
+
+
+# use an entrypoint script to insure conda environment is properly activated at runtime
+COPY --chown=$UID:$GID compose/entrypoint.sh /usr/local/bin
+RUN chmod u+x /usr/local/bin/entrypoint.sh
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
+# Make bash automatically activate the conda environment
+RUN echo "conda activate $ENV_PREFIX" >> ~/.bashrc
+
+
+# RUN pip install theme-darcula 
+# SHELL [ "sh" ]
+# RUN jupyter lab build
+
+# default command will be to launch JupyterLab server for development
+# CMD runs the command inside the container once a container is forked or created from an image. 
+# You can only have one CMD instruction in a Dockerfile
+# default command will be to launch JupyterLab server for development
+
+# Security Acces
+# "--NotebookApp.token=''" JUPYTER_TOKEN
+# "--NotebookApp.password = ''"
+
+# control of showing hidden files is in the server --> ContentsManager.allow_hidden
+
+# --no-browser
+#     Prevent the opening of the default url in the browser.
+#     Equivalent to: [--ServerApp.open_browser=False --ExtensionApp.open_browser=False]
+# RUN echo ${JUPYTER_TOKEN}
+# CMD [ "jupyter", "lab", "--no-browser", "--ip", "0.0.0.0", "--ContentsManager.allow_hidden=True", "--NotebookApp.token=${JUPYTER_TOKEN}"]
+ARG jupyter_token
+ENV jupyter_token=${jupyter_token}
+# Exec mode
+# https://stackoverflow.com/questions/40454470/how-can-i-use-a-variable-inside-a-dockerfile-cmd
+# https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
+# When instruction is executed in exec form it calls executable directly, and shell processing does not happen. 
+# And we need to pass a shell variable &jupyter_token. For that purpose we add "/bin/bash", "-c", to transform it as an executable. "sh" instead of "/bin/bash" is also useful
+CMD [ "/bin/bash", "-c", "jupyter lab --no-browser --ip 0.0.0.0 --ContentsManager.allow_hidden=True --NotebookApp.token=$jupyter_token"]
+
+
+## Shell mode
+# Alternatively, we can pass from an exec/json syntax (above) for running CMD to run a shell (the following line) that will expand these variables
+# CMD jupyter lab --no-browser --ip 0.0.0.0 --ContentsManager.allow_hidden=True --NotebookApp.token="${jupyter_token}"
+
+# https://tcoil.info/run-conda-from-virtual-environment-inside-docker-and-start-jupyterlab-with-trading-and-ml-libraries/
+
+# Mamab/Conda packages manager for Jupyterlab
+# https://github.com/mamba-org/gator
+
+# Create conda env from environment.yml (set path to file)
+# conda env create -f environment.yml
+
+# Add conda enviroments as kernels in Jupyterlab
+# https://stackoverflow.com/questions/39604271/conda-environments-not-showing-up-in-jupyter-notebook
+# https://stackoverflow.com/questions/53004311/how-to-add-conda-environment-to-jupyter-lab
+
+
+#### Add jupyterlab extensions
+# In atached shell of docker. 
+# docker exec -it <CONTAINER_NAME> bash
+# Rebuild jupyter 
+# jupyter lab build
+
+# Rebuild container
+#  docker-compose build --no-cache &&
+#  docker-compose up -d --force-recreate &&
+# https://github.com/docker/compose/issues/4273
+# https://github.com/docker/compose/issues/2127
+# docker-compose build
+# docker-compose down
+# docker-compose up -d 
