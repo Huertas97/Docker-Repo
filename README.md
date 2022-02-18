@@ -13,6 +13,7 @@
   - [Include new libraries](#include-new-libraries)
     - [Apply changes](#apply-changes)
 - [Jupyterlab & Conda](#jupyterlab--conda)
+  - [Create a new conda environment](#create-a-new-conda-environment)
 - [VSCode](#vscode)
 
 --- 
@@ -200,6 +201,36 @@ Now the changes should be applied.
 ---
 
 # Jupyterlab & Conda
+
+A new version of Dockerfiles templates that include Conda are available from this [repository](https://github.com/vrodriguezf/dockerfiles) (credits to [vrodriguezf](https://github.com/vrodriguezf)). Follow the steps explained there. Here I will further explain how to:
++  create a new conda environment
++  add new jupyterlab extensions and re-build it
+
+## Create a new conda environment
+
+Once we have built and run our Docker container (as explained in the above repository), we can navigate through our Jupyterlab in the browser and create new conda environment in order to separate different projects packages requirements. 
+
+To create a new conda environment we can follow the normal steps explained in the [conda documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands):
+
++ Creating an environment from commands
+  + ``conda create --name myenv -y``
+
++ Creating an environment from .yml file
+  + ``conda env create -f environment.yml``
+
+An example of `environment.yml` file can be found in `Docker-Conda > compose > environment.yml`. 
+You can check that the conda environment has been created using ``conda info --envs` which will show all the environments available (take into account that environments outside conda's default path will also be listed but without a name. [More info](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#specifying-a-location-for-an-environment)). 
+
+Now, you will want to work in a jupyter notebook using your new environment as the jupyter notebook's kernel. To do this, you will need to install `ipykernel` to the environment, and add the environment as a kernel:
+
+````bash
+$ conda activate myenv    
+(myenv)$ conda install ipykernel
+(myenv)$ ipython kernel install --user --name=<any_name_for_kernel_you_will_see_displayed>
+(myenv)$ conda deactivate
+````
+
+Now reload the page (press `F5`) and you will be able to select `<any_name_for_kernel_you_will_see_displayed>` as kernel for the jupyter notebook. Here is an example of before and after setting the kernel available. 
 
 
 
