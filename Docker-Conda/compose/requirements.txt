@@ -40,7 +40,6 @@ pymongo
 python-dotenv
 plotly 
 kaleido
-rpy2
 codetiming
 tqdm
 
