@@ -252,8 +252,15 @@ Even thought the `Docker-Conda` template already includes some extensions (e.g.,
 
 For example we will add a new theme extension: `quetz-theme` from mamba creators. First we find it in the marketplace and click on `Install`: 
 
+![step_!](https://user-images.githubusercontent.com/56938752/154688314-635688ce-3806-46d6-9c87-f38d890f1bf4.PNG)
 
-We probably see this message. We will need to rebuild jupyter lab for changes take place. Build jupyterlab from the browser is not possible as it is running on a docker container. Hence, we need to enter to the container shell and execute the build command. To do this, we have to go to our ssh terminal server (where we run the `docker-compose up -d --build` command) and enter to the bash terminal of the image like so:
+
+We probably see this message. 
+
+![step_2](https://user-images.githubusercontent.com/56938752/154688355-52da93c1-2515-4b49-9d6c-49a5cec4c4ed.PNG)
+
+
+We will need to rebuild jupyter lab for changes take place. Build jupyterlab from the browser is not possible as it is running on a docker container. Hence, we need to enter to the container shell and execute the build command. To do this, we have to go to our ssh terminal server (where we run the `docker-compose up -d --build` command) and enter to the bash terminal of the image like so:
 
 ``docker exec -it <CONTAINER-NAME> bash``
 
