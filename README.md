@@ -14,6 +14,7 @@
     - [Apply changes](#apply-changes)
 - [Jupyterlab & Conda](#jupyterlab--conda)
   - [Create a new conda environment](#create-a-new-conda-environment)
+  - [Add new jupyterlab extensions and re-build it](#add-new-jupyterlab-extensions-and-re-build-it)
 - [VSCode](#vscode)
 
 --- 
@@ -245,6 +246,22 @@ $ conda activate myenv
 
 ![after](https://user-images.githubusercontent.com/56938752/154686114-e8ae998d-4870-47b4-a0ed-8fd56e8c5180.PNG)
 
+## Add new jupyterlab extensions and re-build it
+
+Even thought the `Docker-Conda` template already includes some extensions (e.g., themes, drawio, debugger, GPU dashboards), you might probably find some other extensions useful for you in Jupyterlab 3 in the market place. 
+
+For example we will add a new theme extension: `quetz-theme` from mamba creators. First we find it in the marketplace and click on `Install`: 
+
+
+We probably see this message. We will need to rebuild jupyter lab for changes take place. Build jupyterlab from the browser is not possible as it is running on a docker container. Hence, we need to enter to the container shell and execute the build command. To do this, we have to go to our ssh terminal server (where we run the `docker-compose up -d --build` command) and enter to the bash terminal of the image like so:
+
+``docker exec -it <CONTAINER-NAME> bash``
+
+Now, we are in the shell of our container and we can run the following command:
+
+``jupyter lab build --minimize=False``
+
+That's it! We can now reload our Jupyterlab sesion in the browser and we will have succesfully added the new extension.
 
 # VSCode
 
