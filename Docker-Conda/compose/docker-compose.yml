@@ -26,6 +26,7 @@ services:
       - conda-env:/home/${USER_NAME}/env
       - miniconda:/home/${USER_NAME}/miniconda3
       - lib:/home/${USER_NAME}/lib
+      - work-volume:/home/${USER_NAME}/work  # Persist work folder
     init: true
     stdin_open: true
     tty: true  
@@ -35,3 +36,4 @@ volumes:
   conda-env:
   miniconda:
   lib:
+  work-volume:  # Define the work-volume
